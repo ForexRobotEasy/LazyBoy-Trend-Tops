@@ -1,0 +1,136 @@
+
+//+------------------------------------------------------------------+
+//|                                                LazyBoy Trend Tops |
+//|                                        Developed by Forex Robot Easy Team |
+//|                                        Website: forexroboteasy.com |
+//+------------------------------------------------------------------+
+
+// Define input parameters
+input double LotSize = 0.01; // Lot size for each position
+input int MaxPositions = 5; // Maximum number of positions to take
+input int StopLoss = 50; // Stop loss in pips
+input int TakeProfit = 100; // Take profit in pips
+
+// Define global variables
+int positionsTaken = 0; // Counter for positions taken
+
+//+------------------------------------------------------------------+
+//| Expert Advisor initialization function                              |
+//+------------------------------------------------------------------+
+int OnInit()
+{
+    // Set up trading conditions
+    if(!IsTradeAllowed())
+    {
+        Print('Trading is not allowed. Please check your settings.');
+        return INIT_FAILED;
+    }
+    
+    return INIT_SUCCEEDED;
+}
+
+//+------------------------------------------------------------------+
+//| Expert Advisor start function                                      |
+//+------------------------------------------------------------------+
+void OnTick()
+{
+    // Check if maximum positions have been taken
+    if(positionsTaken >= MaxPositions)
+        return;
+    
+    // Calculate the trend tops and bottoms
+    double trendTop = CalculateTrendTop();
+    double trendBottom = CalculateTrendBottom();
+    
+    // Check if the current price is at a trend top or bottom
+    if(IsCurrentPriceAtTrendTop() || IsCurrentPriceAtTrendBottom())
+    {
+        // Open a new position
+        if(OpenPosition())
+        {
+            positionsTaken++;
+            return;
+        }
+    }
+    
+    // Check for stop loss or take profit
+    CheckStopLoss();
+    CheckTakeProfit();
+}
+
+//+------------------------------------------------------------------+
+//| Calculate trend top                                                |
+//+------------------------------------------------------------------+
+double CalculateTrendTop()
+{
+    // Implement sophisticated arithmetic algorithm to identify trend top
+    // ...
+}
+
+//+------------------------------------------------------------------+
+//| Calculate trend bottom                                             |
+//+------------------------------------------------------------------+
+double CalculateTrendBottom()
+{
+    // Implement sophisticated arithmetic algorithm to identify trend bottom
+    // ...
+}
+
+//+------------------------------------------------------------------+
+//| Check if current price is at a trend top                           |
+//+------------------------------------------------------------------+
+bool IsCurrentPriceAtTrendTop()
+{
+    // Implement logic to check if current price is at a trend top
+    // ...
+}
+
+//+------------------------------------------------------------------+
+//| Check if current price is at a trend bottom                        |
+//+------------------------------------------------------------------+
+bool IsCurrentPriceAtTrendBottom()
+{
+    // Implement logic to check if current price is at a trend bottom
+    // ...
+}
+
+//+------------------------------------------------------------------+
+//| Open a new position                                                |
+//+------------------------------------------------------------------+
+bool OpenPosition()
+{
+    // Calculate position size based on available free margin
+    double positionSize = NormalizeDouble(AccountFreeMargin() * LotSize, 2);
+    
+    // Open a new position using calculated position size
+    // ...
+    
+    return true; // Return true if position is successfully opened
+}
+
+//+------------------------------------------------------------------+
+//| Check for stop loss                                                |
+//+------------------------------------------------------------------+
+void CheckStopLoss()
+{
+    // Implement logic to check if stop loss is reached for any open position
+    // ...
+}
+
+//+------------------------------------------------------------------+
+//| Check for take profit                                              |
+//+------------------------------------------------------------------+
+void CheckTakeProfit()
+{
+    // Implement logic to check if take profit is reached for any open position
+    // ...
+}
+
+//+------------------------------------------------------------------+
+//| Expert Advisor deinitialization function                           |
+//+------------------------------------------------------------------+
+void OnDeinit(const int reason)
+{
+    // Close any remaining open positions
+    // ...
+}
